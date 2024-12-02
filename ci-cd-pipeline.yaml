@@ -1,0 +1,39 @@
+# .github/workflows/ci-cd-pipeline.yml
+name: CI/CD Pipeline for Streamlit Website
+
+on:
+  push:
+    branches:
+      - main  # Run on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Run on pull requests to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Streamlit app (for testing purposes)
+        run: |
+          streamlit run app.py &  # Running app for testing
+
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # Deployment to production or any server can go here.
+          # Example: Deploy to an EC2 instance, or push to a Docker container
+          echo "Deploying to Production Server"

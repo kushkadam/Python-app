@@ -1,0 +1,13 @@
+# website-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: company-website-service
+spec:
+  selector:
+    app: company-website
+  ports:
+    - protocol: TCP
+      port: 80      # Exposes port 80 to the outside world
+      targetPort: 80 # The port inside the container
+  type: LoadBalancer  # Exposes the service externally (use NodePort for local clusters)

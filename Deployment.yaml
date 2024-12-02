@@ -1,0 +1,20 @@
+# website-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: company-website-deployment
+spec:
+  replicas: 3  # Number of replicas (pods) to run
+  selector:
+    matchLabels:
+      app: company-website
+  template:
+    metadata:
+      labels:
+        app: company-website
+    spec:
+      containers:
+      - name: company-website-container
+        image: company-website:latest  # Replace with your Docker image URL
+        ports:
+        - containerPort: 80
